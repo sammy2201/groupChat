@@ -1,0 +1,19 @@
+ <%- include("header") -%>
+
+  <div class="">
+    <p>hi</p>
+    <% newChat.forEach(function(item){ %>
+        <p><%=  item.chat  %></p>
+    <% })%>
+  </div>
+
+
+
+<!-- ////////////type box/////////// -->
+  <form class="" action="/chat" method="post">
+    <input type="text" name="chat" value="">
+    <button type="submit" name="button">+</button>
+  </form>
+</body>
+
+<%- include("footer") -%>
