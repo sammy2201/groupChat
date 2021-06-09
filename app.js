@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const app = express();
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -20,20 +21,27 @@ const chatSchema = new mongoose.Schema({
 const ChatItem = mongoose.model("chatItem", chatSchema);
 
 app.get("/",function(req,res){
-  res.render("signin");
+  res.render("home");
 });
 
+app.get("/register",function(req,res){
+  res.render("register");
+});
+
+app.get("/login",function(req,res){
+  res.render("login");
+});
 
 app.get("/chat", function(req, res) {
   ChatItem.find(function(err, founditems) {
     if (founditems.length === 0) {
 
-      res.render("index", {
+      res.render("chat", {
         newChat: " "
       });
     } else {
 
-      res.render("index", {
+      res.render("chat", {
         newChat: founditems
       });
 
