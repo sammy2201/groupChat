@@ -35,7 +35,7 @@ const chatSchema = new mongoose.Schema({
   chat: String,
 });
 
-const userSchema = new mongoose.Schema ({
+const userSchema = new mongoose.Schema({
   email: String,
   password: String
 });
@@ -50,58 +50,51 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/",function(req,res){
+app.get("/", function(req, res) {
   res.render("home");
 });
 
 
-app.get("/login",function(req,res){
+app.get("/login", function(req, res) {
   res.render("login");
 });
 
-app.get("/register",function(req,res){
+app.get("/register", function(req, res) {
   res.render("register");
 });
 
 
-app.get("/chat", function(req, res){
-  if (req.isAuthenticated()){
+
+app.get("/chat", function(req, res) {
+  if (req.isAuthenticated()) {
     ChatItem.find(function(err, founditems) {
-      if (founditems.length === 0) {
-
         res.render("chat", {
-          newChat: " "
-        });
-      } else {
-
-        res.render("chat", {
-          newChat: founditems
-        });
-      }
+        newChat: founditems,
+      });
     });
   } else {
     res.redirect("/login");
   }
 });
 
-app.get("/logout", function(req, res){
+app.get("/logout", function(req, res) {
   req.logout();
   res.redirect("/");
 });
 
 
-app.post("/login", function(req, res){
+app.post("/login", function(req, res) {
 
   const user = new User({
     username: req.body.username,
     password: req.body.password
   });
 
-  req.login(user, function(err){
+  req.login(user, function(err) {
     if (err) {
       console.log(err);
     } else {
-      passport.authenticate("local")(req, res, function(){
+      passport.authenticate("local")(req, res, function() {
         res.redirect("/chat");
       });
     }
@@ -109,13 +102,15 @@ app.post("/login", function(req, res){
 });
 
 
-app.post("/register", function(req, res){
-  User.register({username: req.body.username}, req.body.password, function(err, user){
+app.post("/register", function(req, res) {
+  User.register({
+    username: req.body.username
+  }, req.body.password, function(err, user) {
     if (err) {
       console.log(err);
       res.redirect("/chat");
     } else {
-      passport.authenticate("local")(req, res, function(){
+      passport.authenticate("local")(req, res, function() {
         res.redirect("/chat");
       });
     }
@@ -126,11 +121,12 @@ app.post("/register", function(req, res){
 
 app.post("/chat", function(req, res) {
   const chat = req.body.chat;
-
-  const sam = new ChatItem({
+  const someconstant = new ChatItem({
     chat: chat
   });
-  sam.save();
+
+  someconstant.save();
+  console.log(someconstant);
 
   res.redirect("/chat");
 });
