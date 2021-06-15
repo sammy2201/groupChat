@@ -1,16 +1,34 @@
 <%- include("header") -%>
+<link rel="stylesheet" href="css/home.css">
+<style>
+body {
+    background-image:url("images/welcome.jpg")
+}
+</style>
+</head>
 
-<div class="jumbotron centered">
-  <div class="container">
-    <i class="fas fa-key fa-6x"></i>
-    <h1 class="display-3">Welcome!</h1>
+<body >
 
-    <hr>
-    <a class="btn btn-light btn-lg" href="/register" role="button">Register</a>
-    <a class="btn btn-dark btn-lg" href="/login" role="button">Login</a>
+  <nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="#">GroupChat</a>
+  </nav>
+
+
+
+
+
+  <h1 class="display-3">Welcome!</h1>
+
+  <div class="buttondiv">
+
+      <a class="btn register btn-light" href="/register" role="button">Register</a>
+      <a class="btn login btn-light" href="/login" role="button">Login</a>
 
   </div>
-</div>
 
 
-<%- include("footer") -%>
+
+
+
+
+  <%- include("footer") -%>

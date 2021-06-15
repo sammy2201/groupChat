@@ -1,10 +1,12 @@
-//jshint esversion:6
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
+
+
 
 
 const app = express();
@@ -14,11 +16,15 @@ app.use(bodyParser.urlencoded({
 }));
 app.set('view engine', 'ejs');
 
+
+
+
 app.use(session({
   secret: 'Our secret',
   resave: false,
   saveUninitialized: false,
 }));
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -80,7 +86,7 @@ app.get("/chat", function(req, res) {
   if (req.isAuthenticated()) {
 
     ChatItem.find(function(err, founditems) {
-  
+
       res.render("chat", {
         nameUser:founditems,
         newChat: founditems

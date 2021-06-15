@@ -1,0 +1,41 @@
+.navbar{
+  background-color: black
+}
+
+h1{
+
+width: 246px;
+height: 80px;
+left: 44px;
+top: 90px;
+margin-left: 184px;
+margin-top: 30px;
+font-family: cursive;
+font-size: 64px;
+line-height: 80px;
+
+}
+.btn{
+  margin-left: 70px;
+  align-items: center;
+}
+.login{
+  margin-top: 130px
+}
+.register{
+    margin-top: 30px
+}
+
+
+.buttondiv{
+position: absolute;
+align-items: center;
+width: 250px;
+height: 300px;
+left: 184px;
+top: 240px;
+
+background: rgba(0, 0, 0, 0.76);
+border: 10px solid #E5E5E5;
+border-radius: 54px;
+}
