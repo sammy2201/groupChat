@@ -33,17 +33,27 @@ mongoose.set('useCreateIndex', true);
 
 const chatSchema = new mongoose.Schema({
   chat: String,
+  name: {
+     type: String,
+     unique: false
+ },
+
 });
+
+
 
 const userSchema = new mongoose.Schema({
   email: String,
+  name: String,
   password: String
 });
+
 
 userSchema.plugin(passportLocalMongoose);
 
 const ChatItem = mongoose.model("chatItem", chatSchema);
 const User = new mongoose.model("User", userSchema);
+
 
 passport.use(User.createStrategy());
 
@@ -65,12 +75,16 @@ app.get("/register", function(req, res) {
 
 
 
+
 app.get("/chat", function(req, res) {
   if (req.isAuthenticated()) {
+
     ChatItem.find(function(err, founditems) {
-        res.render("chat", {
-        newChat: founditems,
-      });
+  
+      res.render("chat", {
+        nameUser:founditems,
+        newChat: founditems
+        });
     });
   } else {
     res.redirect("/login");
@@ -103,8 +117,11 @@ app.post("/login", function(req, res) {
 
 
 app.post("/register", function(req, res) {
+  const nameOfUser = req.body.name;
+
   User.register({
-    username: req.body.username
+    username: req.body.username,
+    name: nameOfUser
   }, req.body.password, function(err, user) {
     if (err) {
       console.log(err);
@@ -121,12 +138,14 @@ app.post("/register", function(req, res) {
 
 app.post("/chat", function(req, res) {
   const chat = req.body.chat;
+  const nameOfUser = req.user.name;
   const someconstant = new ChatItem({
-    chat: chat
+    chat: chat,
+    name:nameOfUser
   });
 
   someconstant.save();
-  console.log(someconstant);
+
 
   res.redirect("/chat");
 });
