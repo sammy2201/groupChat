@@ -1,29 +1,42 @@
  <%- include("header") -%>
+ <link rel="stylesheet" href="css/chat.css">
+
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+<video autoplay muted loop id="myVideo">
+  <source src="images/backvideo.mp4" type="video/mp4">
+</video>
+
+<nav class="navbar navbar-expand-lg navbar-dark ">
   <a class="navbar-brand" href="#">GroupChat</a>
+  <a class="btn btn-light btn-dark logout" href="/logout" role="button">Log Out</a>
 </nav>
+  <div class="card groupnamebox">
+    <h3 class='groupname'>Boom</h3>
+  </div>
 
-  <div class="">
 
-
+  <div class="card chatbox data-spy="scroll" data-target="#navbar-example2" data-offset="0">
 
     <% newChat.forEach(function(item){ %>
-        <h3><%=  item.name  %>:</h3>
-        <p><%=  item.chat  %></p>
+        <h3 class='chat'><%=  item.name  %>:</h3>
+        <p class='chat'><%=  item.chat  %></p>
     <% })%>
   </div>
 
 
 <!-- ////////////type box/////////// -->
-  <form class="" action="/chat" method="post">
-    <input type="text" name="chat" value="">
-    <button type="submit" name="button">+</button>
+<div class="card submitcard">
+  <form class="form-inline chatlabel " action="/chat" method="post">
+    <input class=" downbox form-control" type="text" name="chat" value="" placeholder="Type">
+    <button class=" addbutton btn btn-dark" type="submit" name="button">+</button>
   </form>
+</div>
+
 </body>
 
-    <a class="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
+
 
 <%- include("footer") -%>
