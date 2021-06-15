@@ -1,5 +1,16 @@
  <%- include("header") -%>
  <link rel="stylesheet" href="css/chat.css">
+ <script>
+   $(document).ready(function() {
+
+
+
+       $('html,.chatbox').animate({scrollTop:1000000000000000000000000000}, 1);
+       return false;
+
+
+});
+   </script>
 
 </head>
 
@@ -18,7 +29,7 @@
   </div>
 
 
-  <div class="card chatbox data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+  <div class="card chatbox ">
 
     <% newChat.forEach(function(item){ %>
         <h3 class='chat'><%=  item.name  %>:</h3>
@@ -30,7 +41,7 @@
 <!-- ////////////type box/////////// -->
 <div class="card submitcard">
   <form class="form-inline chatlabel " action="/chat" method="post">
-    <input class=" downbox form-control" type="text" name="chat" value="" placeholder="Type">
+    <input class=" downbox form-control" type="text" name="chat" value="" placeholder="Type" required autofocus>
     <button class=" addbutton btn btn-dark" type="submit" name="button">+</button>
   </form>
 </div>
