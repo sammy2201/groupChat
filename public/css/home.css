@@ -1,7 +1,17 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
+
+
 .navbar{
   background-color: black
+}
+.items{
+  width: 100%
+  align-items: center;
+}
+.icon{
+  color: white;
+  align-self:baseline;
 }
 
 h1{
@@ -15,6 +25,7 @@ margin-top: 30px;
 font-family: cursive;
 font-size: 64px;
 line-height: 80px;
+align-self: center;
 
 }
 .btn{

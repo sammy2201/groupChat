@@ -1,6 +1,10 @@
 .navbar{
   background-color: black
 }
+.far{
+  color: white;
+  align-self:baseline;
+}
 
 h1{
 
