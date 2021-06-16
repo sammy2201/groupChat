@@ -5,7 +5,7 @@
 
 
 
-       $('html,.chatbox').animate({scrollTop:1000000000000000000000000000}, 1);
+       $('html,.chatbox').animate({scrollTop:100000000000000000000000000000}, 1);
        return false;
 
 
@@ -32,8 +32,10 @@
   <div class="card chatbox ">
 
     <% newChat.forEach(function(item){ %>
+        <p class='chat time'><%=  item.time  %></p>
         <h3 class='chat'><%=  item.name  %>:</h3>
         <p class='chat'><%=  item.chat  %></p>
+
     <% })%>
   </div>
 
@@ -41,7 +43,7 @@
 <!-- ////////////type box/////////// -->
 <div class="card submitcard">
   <form class="form-inline chatlabel " action="/chat" method="post">
-    <input class=" downbox form-control" type="text" name="chat" value="" placeholder="Type" required autofocus>
+    <input class=" downbox form-control" type="text " name="chat" value="" placeholder="Type" required autofocus>
     <button class=" addbutton btn btn-dark" type="submit" name="button">+</button>
   </form>
 </div>

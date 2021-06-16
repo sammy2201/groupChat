@@ -1,4 +1,4 @@
-
+//jshint esversion:6
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -40,10 +40,10 @@ mongoose.set('useCreateIndex', true);
 const chatSchema = new mongoose.Schema({
   chat: String,
   name: {
-     type: String,
-     unique: false
- },
-
+    type: String,
+    unique: false
+  },
+  time:String
 });
 
 
@@ -51,7 +51,8 @@ const chatSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
   email: String,
   name: String,
-  password: String
+  password: String,
+
 });
 
 
@@ -86,11 +87,9 @@ app.get("/chat", function(req, res) {
   if (req.isAuthenticated()) {
 
     ChatItem.find(function(err, founditems) {
-
       res.render("chat", {
-        nameUser:founditems,
-        newChat: founditems
-        });
+        newChat: founditems,
+      });
     });
   } else {
     res.redirect("/login");
@@ -145,12 +144,20 @@ app.post("/register", function(req, res) {
 app.post("/chat", function(req, res) {
   const chat = req.body.chat;
   const nameOfUser = req.user.name;
+  const date_ob = new Date();
+  const hours = date_ob.getHours();
+  const minutes = date_ob.getMinutes();
+  const currentTime = hours + ":" + minutes;
+
   const someconstant = new ChatItem({
     chat: chat,
-    name:nameOfUser
+    name: nameOfUser,
+    time: currentTime
+
   });
 
   someconstant.save();
+
 
 
   res.redirect("/chat");

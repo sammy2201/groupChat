@@ -61,6 +61,13 @@ body {
   margin-left: 20px;
 }
 
+
+.time{
+  font-size: 12px;
+  font-weight: bold;
+  align-self: center;
+}
+
 .groupnamebox{
   margin-top: 50px;
   background-color: black;
