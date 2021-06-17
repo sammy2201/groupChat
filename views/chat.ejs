@@ -1,7 +1,6 @@
 <%- include("header") -%>
 <link rel="stylesheet" href="css/chat.css">
 <script>
-
   $(document).ready(function() {
     $('html,.chatbox').animate({
       scrollTop: 100000000000000000000000000000000000
@@ -10,9 +9,9 @@
   });
 </script>
 <style>
-body {
-    background-image:url("images/chat.jpg")
-}
+  body {
+    background-image: url("images/chat.jpg")
+  }
 </style>
 </head>
 
@@ -22,7 +21,7 @@ body {
 
   <nav class="nav navbar navbar-expand-lg navbar-dark ">
     <a class="navbar-brand" href="#">GroupChat</a>
-      <i class="far icon fa-comments fa-2x"></i>
+    <i class="far icon fa-comments fa-2x"></i>
     <a class="btn btn-light btn-dark logout" href="/logout" role="button">Log Out</a>
   </nav>
   <div class="card groupnamebox">
@@ -31,18 +30,41 @@ body {
 
   <div class="card chatbox ">
 
+
     <% newChat.forEach(function(item){ %>
+
     <p class='chat time'><%=  item.time  %></p>
     <h2 class='chat'><%=  item.name  %>:</h2>
     <p class='chat'><%=  item.chat  %></p>
+
+    <%if(item.image==="true"){ %>
+    <img class='chat-img' src="data:image/<%=item.img.contentType%>;base64,
+                    <%=item.img.data.toString('base64')%>">
+
+    <%} %>
+
     <% })%>
+
+
+
+
+
+
   </div>
 
 
   <!-- ////////////type box/////////// -->
   <div class="card submitcard">
     <form class="form-inline chatlabel " action="/chat" method="post">
-      <input class=" downbox form-control" type="text " name="chat" value="" placeholder="Type">
+      <input class=" downbox form-control" type="text " name="chat" value="" placeholder="Type" autocomplete="off">
+
       <button class=" addbutton btn btn-dark" type="submit" name="button">+</button>
     </form>
+
+    <form class="form-inline chatlabel " action="/chat" method="post" enctype="multipart/form-data">
+      <input class="form-control" type="file" name="image" value="">
+      <button class=" addbutton btn btn-dark" type="submit" name="button">+</button>
+    </form>
+
+
   </div>
