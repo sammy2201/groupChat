@@ -22,10 +22,7 @@
   margin-left: 20px;
 }
 
-.chat-img {
-  width: 200px;
-  height: 200px;
-}
+
 
 .time {
   font-size: 12px;
@@ -79,4 +76,16 @@
 
 .time {
   line-height: 0px
+}
+.chat-img {
+  margin-left: 20px;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 5px
+}
+
+.deletebutton{
+  margin-left: 20px;
+  padding: 5px
+
 }

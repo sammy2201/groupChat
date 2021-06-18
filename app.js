@@ -41,15 +41,17 @@ mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads');
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now());
-    }
+  destination: (req, file, cb) => {
+    cb(null, 'uploads');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now());
+  }
 });
 
-var upload = multer({ storage: storage });
+var upload = multer({
+  storage: storage
+});
 
 /////////////////////////////////////////schema////////////////////////
 
@@ -57,23 +59,24 @@ const chatSchema = new mongoose.Schema({
   chat: String,
   name: {
     type: String,
-    unique: false
+    unique: true,
   },
   time: String,
-  img:
-  {
-      data: Buffer,
-      contentType: String
+  img: {
+    data: Buffer,
+    contentType: String
   },
-  image:String
+  image: String
 
 });
 
 
-
 const userSchema = new mongoose.Schema({
   email: String,
-  name: String,
+  name: {
+    type: String,
+    unique: true,
+  },
   password: String,
 
 });
@@ -87,7 +90,7 @@ userSchema.plugin(passportLocalMongoose);
 
 const ChatItem = mongoose.model("chatItem", chatSchema);
 const User = new mongoose.model("User", userSchema);
- // var imgModel= new mongoose.model('Image', imageSchema);
+// var imgModel= new mongoose.model('Image', imageSchema);
 ////////////////////////////////////////////////////////////////
 
 
@@ -113,13 +116,13 @@ app.get("/register", function(req, res) {
 });
 
 
+
 app.get("/chat", function(req, res) {
   if (req.isAuthenticated()) {
-
     ChatItem.find(function(err, founditems) {
       res.render("chat", {
         newChat: founditems,
-
+        username: req.user.name,
       });
 
     });
@@ -127,6 +130,7 @@ app.get("/chat", function(req, res) {
     res.redirect("/login");
   }
 });
+
 
 app.get("/logout", function(req, res) {
   req.logout();
@@ -154,6 +158,7 @@ app.post("/login", function(req, res) {
 
 
 app.post("/register", function(req, res) {
+
   const nameOfUser = req.body.name;
 
   User.register({
@@ -161,7 +166,7 @@ app.post("/register", function(req, res) {
     name: nameOfUser
   }, req.body.password, function(err, user) {
     if (err) {
-      console.log(err);
+      res.send("<h3>username or mail already exist </h3><br></h4>please try with other credentials</h4>");
       res.redirect("/chat");
     } else {
       passport.authenticate("local")(req, res, function() {
@@ -172,8 +177,17 @@ app.post("/register", function(req, res) {
 });
 
 
+app.post("/delete", function(req, res) {
+  const deleteItemId = req.body.deletebutton;
+  ChatItem.findByIdAndRemove(deleteItemId,function(err){
+    if(!err){
+      res.redirect("/chat");
+    }
+  });
+});
 
-app.post("/chat", upload.single('image'),function(req, res) {
+
+app.post("/chat", upload.single('image'), function(req, res) {
   const chat = req.body.chat;
   const nameOfUser = req.user.name;
   const date_ob = new Date();
@@ -186,7 +200,7 @@ app.post("/chat", upload.single('image'),function(req, res) {
       chat: chat,
       name: nameOfUser,
       time: currentTime,
-      image:false,
+      image: false,
     });
     someconstant.save();
   }
@@ -196,10 +210,10 @@ app.post("/chat", upload.single('image'),function(req, res) {
       name: nameOfUser,
       time: currentTime,
       img: {
-              data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-              contentType: 'image/png'
-            },
-      image:true,
+        data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+        contentType: 'image/png'
+      },
+      image: true,
 
     });
     someconstant.save();

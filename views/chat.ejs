@@ -38,11 +38,19 @@
 
     <%if(item.image==="true"){ %>
     <img class='chat-img' src="data:image/<%=item.img.contentType%>;base64,
-                    <%=item.img.data.toString('base64')%>">
+                        <%=item.img.data.toString('base64')%>">
 
     <%} %>
 
+    <%if(item.name=== username){ %>
+      <form action="/delete" method="post">
+        <button class="btn btn-dark deletebutton" type="submit" value="<%=  item._id  %>" name="deletebutton">delete</button>
+      </form>
+   <%} %>
+
     <% })%>
+
+
 
   </div>
 
