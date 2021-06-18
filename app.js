@@ -78,11 +78,7 @@ const userSchema = new mongoose.Schema({
 
 });
 
-// const imageSchema = new mongoose.Schema({
-//     name: String,
-//     desc: String,
-//
-// });
+
 
 //////////////////////////////////////////////////////////////////
 userSchema.plugin(passportLocalMongoose);

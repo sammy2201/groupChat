@@ -1,71 +1,82 @@
-
-.navbar{
+.navbar {
   background-color: black
 }
 
-.logout{
+.logout {
   margin-left: 100px
 }
 
-
-.chatbox{
+.chatbox {
   width: 500px;
   margin-left: 300px;
   height: 400px;
-   overflow: auto;
+  overflow: auto;
 }
-.icon{
+
+.icon {
   color: white;
-  align-self:baseline;
+  align-self: baseline;
 }
-.chat{
+
+.chat {
   margin-left: 20px;
 }
 
-.chat-img{
-  width: 300px;
-  height: 300px;
+.chat-img {
+  width: 200px;
+  height: 200px;
 }
 
-
-.time{
+.time {
   font-size: 12px;
   font-weight: bold;
   align-self: center;
 }
 
-.groupnamebox{
-  margin-top: 50px;
+.groupnamebox {
+  margin-top: 40px;
   background-color: black;
   width: 500px;
   margin-left: 300px;
   align-items: center;
 }
-.groupname{
+
+.groupname {
   color: white
 }
 
-.chatlabel{
-
-    width: 400px;
+.chatlabel {
+  width: 200px;
+  display: inline;
 }
 
-.downbox{
+.downbox {
   padding: 10px;
   margin: 10px;
-  width: 100px;
+  width: 110px;
+  border: 0
 }
 
+.downbox:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25)
+}
 
-.addbutton{
+.downbox::-moz-placeholder{color:#6c757d;opacity:1}
+
+.addbutton {
   margin-top: 0
 }
-.submitcard{
+
+.submitcard {
   margin-left: 300px;
   width: 500px;
   background-color: black
 }
 
-.time{
+.time {
   line-height: 0px
 }
