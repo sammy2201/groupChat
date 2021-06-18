@@ -1,16 +1,28 @@
 .navbar {
-  background-color: black
+  background-color: #6186E4
 }
 
+.navbar {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+}
 .logout {
   margin-left: 100px
 }
 
 .chatbox {
   width: 500px;
-  margin-left: 300px;
+
   height: 400px;
   overflow: auto;
+}
+
+.image{
+  width: 300px;
+  height: 300px;
+  margin-top: 15%;
+  margin-left: 15%
 }
 
 .icon {
@@ -32,9 +44,8 @@
 
 .groupnamebox {
   margin-top: 40px;
-  background-color: black;
+  background-color: #6186E4;
   width: 500px;
-  margin-left: 300px;
   align-items: center;
 }
 
@@ -68,10 +79,17 @@
   margin-top: 0
 }
 
+.btn{
+  background-color:#112D8E;
+  color: white
+
+}
+
+
 .submitcard {
-  margin-left: 300px;
+
   width: 500px;
-  background-color: black
+  background-color:  #6186E4;
 }
 
 .time {
@@ -86,6 +104,7 @@
 
 .deletebutton{
   margin-left: 20px;
-  padding: 5px
+  padding: 5px;
+  margin-bottom: 5px
 
 }

@@ -4,80 +4,69 @@
   $(document).ready(function() {
     $('html,.chatbox').animate({
       scrollTop: 100000000000000000000000000000000000
-    }, 0.000000000001);
+    }, 0.000000000000000000001);
     return false;
   });
 </script>
-<style>
-  body {
-    background-image: url("images/chat.jpg")
-  }
-</style>
+
 </head>
 
 <body>
 
 
   <nav class="nav navbar navbar-expand-lg navbar-dark ">
-    <a class="navbar-brand" href="#">GroupChat</a>
+    <a class="navbar-brand" href="/">GroupChat</a>
     <i class="far icon fa-comments fa-2x"></i>
     <a class="btn btn-light btn-dark logout" href="/logout" role="button">Log Out</a>
   </nav>
-  <div class="card groupnamebox">
-    <h3 class='groupname'>Boom</h3>
-  </div>
-
-  <div class="card chatbox ">
-
-
-    <% newChat.forEach(function(item){ %>
-
-    <p class='chat time'><%=  item.time  %></p>
-    <h2 class='chat'><%=  item.name  %>:</h2>
-    <p class='chat'><%=  item.chat  %></p>
-
-    <%if(item.image==="true"){ %>
-    <img class='chat-img' src="data:image/<%=item.img.contentType%>;base64,
-                        <%=item.img.data.toString('base64')%>">
-
-    <%} %>
-
-    <%if(item.name=== username){ %>
-      <form action="/delete" method="post">
-        <button class="btn btn-dark deletebutton" type="submit" value="<%=  item._id  %>" name="deletebutton">delete</button>
-      </form>
-   <%} %>
-
-    <% })%>
 
 
 
-  </div>
-
-
-  <!-- ////////////type box/////////// -->
-  <div class="card submitcard">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <form class="form-inline chatlabel " action="/chat" method="post">
-            <input class=" downbox " type="text " name="chat" value="" placeholder="Type" autocomplete="off" autofocus>
-            <button class=" addbutton btn btn-dark" type="submit" name="button">+</button>
-
-          </form>
+  <div class="container">
+    <div class="row">
+      <div class="col-md">
+          <img class="image" src="images/chat.svg" alt="">
+      </div>
+      <div class="col-md">
+        <div class="card groupnamebox">
+          <h3 class='groupname'>Boom</h3>
         </div>
-        <div class="col">
-          <form class="form-inline chatlabel " action="/chat" method="post" enctype="multipart/form-data">
-            <input class="downbox " type="file" name="image" value="">
-            <button class=" addbutton btn btn-dark" type="submit" name="button">+</button>
+        <div class="card chatbox ">
+          <% newChat.forEach(function(item){ %>
+          <p class='chat time'><%=  item.time  %></p>
+          <h2 class='chat'><%=  item.name  %>:</h2>
+          <p class='chat'><%=  item.chat  %></p>
+          <%if(item.image==="true"){ %>
+          <img class='chat-img' src="data:image/<%=item.img.contentType%>;base64,
+                              <%=item.img.data.toString('base64')%>">
+          <%} %>
+          <%if(item.name=== username){ %>
+          <form action="/delete" method="post">
+            <button class="btn  deletebutton" type="submit" value="<%=  item._id  %>" name="deletebutton">delete</button>
           </form>
+          <%} %>
+          <% })%>
+        </div>
+        <!-- ////////////type box/////////// -->
+        <div class="card submitcard">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <form class="form-inline chatlabel " action="/chat" method="post">
+                  <input class=" downbox " type="text " name="chat" value="" placeholder="Type" autocomplete="off" autofocus>
+                  <button class=" addbutton btn " type="submit" name="button">+</button>
+                </form>
+              </div>
+              <div class="col">
+                <form class="form-inline chatlabel " action="/chat" method="post" enctype="multipart/form-data">
+                  <input class="downbox " type="file" name="image" value="">
+                  <button class=" addbutton btn " type="submit" name="button">+</button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
     </div>
-
-
-
-
-
   </div>

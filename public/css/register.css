@@ -1,5 +1,18 @@
 .navbar{
-  background-color: black
+  background-color: #6186E4
+}
+
+.navbar {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+}
+.image{
+  width: 300px;
+  height: 300px;
+  margin-left: 25%;
+  margin-top: 10%
+
 }
 .far{
   color: white;
@@ -20,7 +33,7 @@ line-height: 80px;
 }
 
 .box{
-background: rgba(0, 0, 0, 0.78);
+background: rgba(53, 103, 230, 0.56);
 border-radius: 50px;
 width: 600px
 }

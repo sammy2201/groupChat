@@ -1,9 +1,13 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-
+.navbar {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+}
 
 .navbar{
-  background-color: black
+  background-color: #6186E4
 }
 .items{
   width: 100%
@@ -41,14 +45,18 @@ align-self: center;
 
 
 .buttondiv{
-position: absolute;
+
 align-items: center;
 width: 250px;
 height: 300px;
-left: 164px;
-top: 240px;
-
-background: rgba(0, 0, 0, 0.76);
+margin-top: 20%;
+background: rgba(53, 103, 230, 0.56);
 border: 10px solid #E5E5E5;
 border-radius: 54px;
+}
+
+.welcomeimage{
+  width: 400px;
+  height: 400px;
+
 }
