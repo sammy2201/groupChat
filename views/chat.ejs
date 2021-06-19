@@ -1,6 +1,9 @@
 <%- include("header") -%>
 <link rel="stylesheet" href="css/chat.css">
+
 <script>
+
+
   $(document).ready(function() {
     $('html,.chatbox').animate({
       scrollTop: 100000000000000000000000000000000000
@@ -42,7 +45,7 @@
           <%} %>
           <%if(item.name=== username){ %>
           <form action="/delete" method="post">
-            <button class="btn  deletebutton" type="submit" value="<%=  item._id  %>" name="deletebutton">delete</button>
+            <button class="btn  deletebutton" type="submit" value="<%=  item._id  %>" name="deletebutton">delete </button>
           </form>
           <%} %>
           <% })%>
@@ -59,7 +62,7 @@
               </div>
               <div class="col">
                 <form class="form-inline chatlabel " action="/chat" method="post" enctype="multipart/form-data">
-                  <input class="downbox " type="file" name="image" value="">
+                  <input class="downbox file " type="file" name="image" value="">
                   <button class=" addbutton btn " type="submit" name="button">+</button>
                 </form>
               </div>

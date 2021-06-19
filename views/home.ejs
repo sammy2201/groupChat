@@ -15,17 +15,23 @@
   <h1 class="display-3">Welcome!</h1>
 
   <div class="container">
-  <div class="row">
-    <div class="col-md">
-      <div class="buttondiv">
-        <a class="btn register btn-dark" href="/register" role="button">Register</a>
-        <a class="btn login btn-dark" href="/login" role="button">Login</a>
+    <div class="row">
+      <div class="col-md">
+        <div class="buttondiv">
+          <div class="btn-2  login ">
+              <a  href="/login" role="button"><span>Login</span></a>
+          </div>
+
+
+          <div class="btn-2 register ">
+              <a  href="/register" role="button"><span>Register</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md">
+        <img class="welcomeimage" src="images/wel.svg" alt="">
       </div>
     </div>
-    <div class="col-md">
-        <img class="welcomeimage" src="images/wel.svg" alt="">
-    </div>
   </div>
-</div>
 
   <%- include("footer") -%>
