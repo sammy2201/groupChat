@@ -8,7 +8,6 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
-const md5 = require("md5");
 require('dotenv/config');
 
 
@@ -71,6 +70,21 @@ const chatSchema = new mongoose.Schema({
 
 });
 
+const groupSchema = new mongoose.Schema({
+  nameOfGroup: String,
+  chat: String,
+  name: {
+    type: String,
+    unique: false,
+  },
+  time: String,
+  img: {
+    data: Buffer,
+    contentType: String
+  },
+  image: String
+
+});
 
 const userSchema = new mongoose.Schema({
   email: String,
@@ -79,22 +93,19 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
   password: String,
+
 });
 
-const groupSchema = new mongoose.Schema({
-  groupname: {
-    type: String,
-    unique: true,
-  },
-  code: String,
-});
+
+
 //////////////////////////////////////////////////////////////////
 userSchema.plugin(passportLocalMongoose);
 
 //////////////////////////model//////////////////////////////////
-const Group = new mongoose.model("Group", groupSchema);
+
 const ChatItem = mongoose.model("chatItem", chatSchema);
 const User = new mongoose.model("User", userSchema);
+const Group = new mongoose.model("Group", groupSchema);
 // var imgModel= new mongoose.model('Image', imageSchema);
 ////////////////////////////////////////////////////////////////
 
@@ -120,21 +131,23 @@ app.get("/register", function(req, res) {
   res.render("register");
 });
 
-app.get("/groupregister", function(req, res) {
+app.get("/chat/:customGroupName", function(req, res) {
+  const costumGroupName = req.params.customGroupName;
   if (req.isAuthenticated()) {
-    res.render("groupregister");
-  }else {
-    res.redirect("/");
+    Group.find(function(err, founditems) {
+      res.render("chat", {
+        groupname: costumGroupName,
+        newChat: founditems,
+        username: req.user.name,
+      });
+
+    });
+  } else {
+    res.redirect("/login");
   }
+
 });
 
-app.get("/grouplogin", function(req, res) {
-  if (req.isAuthenticated()) {
-    res.render("grouplogin");
-  }else {
-    res.redirect("/");
-  }
-});
 
 app.get("/chat", function(req, res) {
   if (req.isAuthenticated()) {
@@ -150,6 +163,7 @@ app.get("/chat", function(req, res) {
     res.redirect("/login");
   }
 });
+
 
 
 app.get("/logout", function(req, res) {
@@ -170,7 +184,7 @@ app.post("/login", function(req, res) {
       console.log(err);
     } else {
       passport.authenticate("local")(req, res, function() {
-        res.redirect("/grouplogin");
+        res.redirect("/chat");
       });
     }
   });
@@ -178,6 +192,7 @@ app.post("/login", function(req, res) {
 
 
 app.post("/register", function(req, res) {
+
 
   const nameOfUser = req.body.name;
 
@@ -190,41 +205,8 @@ app.post("/register", function(req, res) {
       res.redirect("/chat");
     } else {
       passport.authenticate("local")(req, res, function() {
-        res.redirect("/groupregister");
+        res.redirect("/chat");
       });
-    }
-  });
-});
-
-app.post("/groupregister", function(req, res) {
-  const newgroup = new Group({
-    groupname: req.body.groupname,
-    code: md5(req.body.password)
-  });
-  newgroup.save(function(err) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.redirect("/chat");
-    }
-  });
-});
-
-app.post("/grouplogin", function(req, res) {
-  const username = req.body.groupname;
-  const password = md5(req.body.password);
-
-  Group.findOne({
-    groupname: username
-  }, function(err, foundUser) {
-    if (err) {
-      console.log(err);
-    } else {
-      if (foundUser) {
-        if (foundUser.code === password) {
-          res.redirect("/chat");
-        }
-      }
     }
   });
 });
@@ -241,39 +223,78 @@ app.post("/delete", function(req, res) {
 
 
 app.post("/chat", upload.single('image'), function(req, res) {
+
   const chat = req.body.chat;
+  const fromThisPage = req.body.button;
   const nameOfUser = req.user.name;
   const date_ob = new Date();
   const hours = date_ob.getHours();
   const minutes = date_ob.getMinutes();
   const currentTime = hours + ":" + minutes;
 
-  if (chat !== undefined) {
-    const someconstant = new ChatItem({
-      chat: chat,
-      name: nameOfUser,
-      time: currentTime,
-      image: false,
-    });
-    someconstant.save();
+  if (fromThisPage === "Boom") {
+    if (chat !== undefined) {
+      const someconstant = new ChatItem({
+        chat: chat,
+        name: nameOfUser,
+        time: currentTime,
+        image: false,
+      });
+      someconstant.save();
+    }
+    if (chat === undefined) {
+      const someconstant = new ChatItem({
+
+        name: nameOfUser,
+        time: currentTime,
+        img: {
+          data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+          contentType: 'image/png'
+        },
+        image: true,
+
+      });
+      someconstant.save();
+    }
+
+    res.redirect("/chat");
+  } else {
+    if (chat !== undefined) {
+
+      const someconstant = new Group({
+        nameOfGroup: fromThisPage,
+        chat: chat,
+        name: nameOfUser,
+        time: currentTime,
+        image: false,
+      });
+      someconstant.save();
+    }
+    if (chat === undefined) {
+      const someconstant = new Group({
+        nameOfGroup: fromThisPage,
+        name: nameOfUser,
+        time: currentTime,
+        img: {
+          data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+          contentType: 'image/png'
+        },
+        image: true,
+
+      });
+      someconstant.save();
+    }
+
+    res.redirect("/chat/"+fromThisPage);
+
   }
-  if (chat === undefined) {
-    const someconstant = new ChatItem({
 
-      name: nameOfUser,
-      time: currentTime,
-      img: {
-        data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-        contentType: 'image/png'
-      },
-      image: true,
 
-    });
-    someconstant.save();
-  }
-
-  res.redirect("/chat");
 });
+
+
+
+
 
 app.listen(process.env.PORT || 3000, function() {
   console.log("in port 3000");

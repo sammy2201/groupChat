@@ -2,14 +2,18 @@
 <link rel="stylesheet" href="css/chat.css">
 
 <script>
-
-
   $(document).ready(function() {
     $('html,.chatbox').animate({
       scrollTop: 100000000000000000000000000000000000
     }, 0.000000000000000000001);
     return false;
   });
+
+  function yourFunction() {
+    var action_src = "http://localhost:3000/chat/" + document.getElementsByName("keywords")[0].value;
+    var your_form = document.getElementById('your_form');
+    your_form.action = action_src;
+  }
 </script>
 
 </head>
@@ -28,7 +32,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md">
-          <img class="image" src="images/chat.svg" alt="">
+        <img class="image" src="images/chat.svg" alt="">
       </div>
       <div class="col-md">
         <div class="card groupnamebox">
@@ -36,17 +40,19 @@
         </div>
         <div class="card chatbox ">
           <% newChat.forEach(function(item){ %>
+          <%if(item.nameOfGroup=== groupname||item.nameOfGroup=== undefined){ %>
           <p class='chat time'><%=  item.time  %></p>
           <h2 class='chat'><%=  item.name  %>:</h2>
           <p class='chat'><%=  item.chat  %></p>
           <%if(item.image==="true"){ %>
           <img class='chat-img' src="data:image/<%=item.img.contentType%>;base64,
-                              <%=item.img.data.toString('base64')%>">
+                                          <%=item.img.data.toString('base64')%>">
           <%} %>
           <%if(item.name=== username){ %>
           <form action="/delete" method="post">
             <button class="btn  deletebutton" type="submit" value="<%=  item._id  %>" name="deletebutton">delete </button>
           </form>
+          <%} %>
           <%} %>
           <% })%>
         </div>
@@ -57,19 +63,23 @@
               <div class="col">
                 <form class="form-inline chatlabel " action="/chat" method="post">
                   <input class=" downbox " type="text " name="chat" value="" placeholder="Type" autocomplete="off" autofocus>
-                  <button class=" addbutton btn " type="submit" name="button">+</button>
+                  <button class=" addbutton btn " type="submit" name="button" value="<%=groupname%>">+</button>
                 </form>
               </div>
               <div class="col">
                 <form class="form-inline chatlabel " action="/chat" method="post" enctype="multipart/form-data">
                   <input class="downbox file " type="file" name="image" value="">
-                  <button class=" addbutton btn " type="submit" name="button">+</button>
+                  <button class=" addbutton btn " type="submit" name="button" value="<%=groupname%>">+</button>
                 </form>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <form id="your_form" onsubmit="yourFunction()">
+        <input type="text" name="keywords">
+        <input type="submit" value="Search">
+      </form>
 
     </div>
   </div>
