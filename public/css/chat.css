@@ -15,7 +15,8 @@
   width: 500px;
   height: 400px;
   overflow: auto;
-    border-radius: 0
+  border-radius: 0;
+  background-color:  rgba(161, 181, 253, 0.15)
 }
 
 .image{

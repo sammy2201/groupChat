@@ -8,6 +8,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
+const md5 = require("md5");
 require('dotenv/config');
 
 
@@ -78,16 +79,20 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
   password: String,
-
 });
 
-
-
+const groupSchema = new mongoose.Schema({
+  groupname: {
+    type: String,
+    unique: true,
+  },
+  code: String,
+});
 //////////////////////////////////////////////////////////////////
 userSchema.plugin(passportLocalMongoose);
 
 //////////////////////////model//////////////////////////////////
-
+const Group = new mongoose.model("Group", groupSchema);
 const ChatItem = mongoose.model("chatItem", chatSchema);
 const User = new mongoose.model("User", userSchema);
 // var imgModel= new mongoose.model('Image', imageSchema);
@@ -115,12 +120,27 @@ app.get("/register", function(req, res) {
   res.render("register");
 });
 
+app.get("/groupregister", function(req, res) {
+  if (req.isAuthenticated()) {
+    res.render("groupregister");
+  }else {
+    res.redirect("/");
+  }
+});
 
+app.get("/grouplogin", function(req, res) {
+  if (req.isAuthenticated()) {
+    res.render("grouplogin");
+  }else {
+    res.redirect("/");
+  }
+});
 
 app.get("/chat", function(req, res) {
   if (req.isAuthenticated()) {
     ChatItem.find(function(err, founditems) {
       res.render("chat", {
+        groupname: "Boom",
         newChat: founditems,
         username: req.user.name,
       });
@@ -150,7 +170,7 @@ app.post("/login", function(req, res) {
       console.log(err);
     } else {
       passport.authenticate("local")(req, res, function() {
-        res.redirect("/chat");
+        res.redirect("/grouplogin");
       });
     }
   });
@@ -170,8 +190,41 @@ app.post("/register", function(req, res) {
       res.redirect("/chat");
     } else {
       passport.authenticate("local")(req, res, function() {
-        res.redirect("/chat");
+        res.redirect("/groupregister");
       });
+    }
+  });
+});
+
+app.post("/groupregister", function(req, res) {
+  const newgroup = new Group({
+    groupname: req.body.groupname,
+    code: md5(req.body.password)
+  });
+  newgroup.save(function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/chat");
+    }
+  });
+});
+
+app.post("/grouplogin", function(req, res) {
+  const username = req.body.groupname;
+  const password = md5(req.body.password);
+
+  Group.findOne({
+    groupname: username
+  }, function(err, foundUser) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (foundUser) {
+        if (foundUser.code === password) {
+          res.redirect("/chat");
+        }
+      }
     }
   });
 });
@@ -179,8 +232,8 @@ app.post("/register", function(req, res) {
 
 app.post("/delete", function(req, res) {
   const deleteItemId = req.body.deletebutton;
-  ChatItem.findByIdAndRemove(deleteItemId,function(err){
-    if(!err){
+  ChatItem.findByIdAndRemove(deleteItemId, function(err) {
+    if (!err) {
       res.redirect("/chat");
     }
   });
