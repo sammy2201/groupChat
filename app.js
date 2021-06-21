@@ -96,8 +96,6 @@ const userSchema = new mongoose.Schema({
 
 });
 
-
-
 //////////////////////////////////////////////////////////////////
 userSchema.plugin(passportLocalMongoose);
 
@@ -108,8 +106,6 @@ const User = new mongoose.model("User", userSchema);
 const Group = new mongoose.model("Group", groupSchema);
 // var imgModel= new mongoose.model('Image', imageSchema);
 ////////////////////////////////////////////////////////////////
-
-
 
 /////////////////////passport//////////////////////////////////
 passport.use(User.createStrategy());
@@ -122,7 +118,6 @@ app.get("/", function(req, res) {
   res.render("home");
 });
 
-
 app.get("/login", function(req, res) {
   res.render("login");
 });
@@ -130,7 +125,6 @@ app.get("/login", function(req, res) {
 app.get("/register", function(req, res) {
   res.render("register");
 });
-
 
 app.get("/chat", function(req, res) {
   if (req.isAuthenticated()) {
@@ -165,12 +159,6 @@ app.get("/:customGroupName", function(req, res) {
   }
 });
 
-
-
-
-
-
-
 ////////////////////////post///////////////////
 app.post("/login", function(req, res) {
 
@@ -190,12 +178,8 @@ app.post("/login", function(req, res) {
   });
 });
 
-
 app.post("/register", function(req, res) {
-
-
   const nameOfUser = req.body.name;
-
   User.register({
     username: req.body.username,
     name: nameOfUser
@@ -210,7 +194,6 @@ app.post("/register", function(req, res) {
     }
   });
 });
-
 
 app.post("/delete", function(req, res) {
   const deleteItemId = req.body.deletebutton;
@@ -228,12 +211,9 @@ app.post("/delete", function(req, res) {
       }
     });
   }
-
 });
 
-
 app.post("/chat", upload.single('image'), function(req, res) {
-
   const chat = req.body.chat;
   const fromThisPage = req.body.button;
   const nameOfUser = req.user.name;
@@ -254,7 +234,6 @@ app.post("/chat", upload.single('image'), function(req, res) {
     }
     if (chat === undefined) {
       const someconstant = new ChatItem({
-
         name: nameOfUser,
         time: currentTime,
         img: {
@@ -262,15 +241,12 @@ app.post("/chat", upload.single('image'), function(req, res) {
           contentType: 'image/png'
         },
         image: true,
-
       });
       someconstant.save();
     }
-
     res.redirect("/chat");
   } else {
     if (chat !== undefined) {
-
       const someconstant = new Group({
         nameOfGroup: fromThisPage,
         chat: chat,
@@ -289,22 +265,14 @@ app.post("/chat", upload.single('image'), function(req, res) {
           data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
           contentType: 'image/png'
         },
-        image: true,
-
+      image: true,
       });
       someconstant.save();
     }
-
     res.redirect("/"+fromThisPage);
-
   }
 
-
 });
-
-
-
-
 
 app.listen(process.env.PORT || 3000, function() {
   console.log("in port 3000");

@@ -15,11 +15,15 @@
     your_form.action = action_src;
   }
 </script>
+<!-- <style media="screen">
+  .chatbox{
+      background-image: url("images/chatbg.jpg");
+  }
+</style> -->
 
 </head>
 
 <body>
-
 
   <nav class="nav navbar navbar-expand-lg navbar-dark ">
     <a class="navbar-brand" href="/">GroupChat</a>
@@ -27,22 +31,25 @@
     <a class="btn btn-light btn-dark logout" href="/logout" role="button">Log Out</a>
   </nav>
 
-
-
   <div class="container">
     <div class="row">
       <div class="col-md">
         <img class="image" src="images/chat.svg" alt="">
+
+        <%if(groupname=== "Boom"){ %>
         <h3 class="desp">create your own private room</h3>
         <form id="your_form" onsubmit="yourFunction()">
           <input type="text" class="form-control" placeholder="Group Name" name="keywords">
-
           <div class="btn-2 register ">
             <button type="submit" name="button" value="search"><span>Create / Join</span></button>
-
           </div>
-
         </form>
+        <%}else{ %>
+          <h3 class="desp">Go back to public room</h3>
+            <div class="btn-2 register ">
+              <a href="/chat"><button  name="button"><span>Go Back</span></button></a>
+            </div>
+        <%}%>
       </div>
       <div class="col-md">
         <div class="card groupnamebox">
