@@ -131,23 +131,6 @@ app.get("/register", function(req, res) {
   res.render("register");
 });
 
-app.get("/chat/:customGroupName", function(req, res) {
-  const costumGroupName = req.params.customGroupName;
-  if (req.isAuthenticated()) {
-    Group.find(function(err, founditems) {
-      res.render("chat", {
-        groupname: costumGroupName,
-        newChat: founditems,
-        username: req.user.name,
-      });
-
-    });
-  } else {
-    res.redirect("/login");
-  }
-
-});
-
 
 app.get("/chat", function(req, res) {
   if (req.isAuthenticated()) {
@@ -157,7 +140,25 @@ app.get("/chat", function(req, res) {
         newChat: founditems,
         username: req.user.name,
       });
+    });
+  } else {
+    res.redirect("/login");
+  }
+});
 
+app.get("/logout", function(req, res) {
+  req.logout();
+  res.redirect("/");
+});
+app.get("/:customGroupName", function(req, res) {
+  const costumGroupName = req.params.customGroupName;
+  if (req.isAuthenticated()) {
+    Group.find(function(err, founditems) {
+      res.render("chat", {
+        groupname: costumGroupName,
+        newChat: founditems,
+        username: req.user.name,
+      });
     });
   } else {
     res.redirect("/login");
@@ -166,10 +167,9 @@ app.get("/chat", function(req, res) {
 
 
 
-app.get("/logout", function(req, res) {
-  req.logout();
-  res.redirect("/");
-});
+
+
+
 
 ////////////////////////post///////////////////
 app.post("/login", function(req, res) {
@@ -285,7 +285,7 @@ app.post("/chat", upload.single('image'), function(req, res) {
       someconstant.save();
     }
 
-    res.redirect("/chat/"+fromThisPage);
+    res.redirect("/"+fromThisPage);
 
   }
 
