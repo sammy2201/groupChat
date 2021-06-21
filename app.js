@@ -214,11 +214,21 @@ app.post("/register", function(req, res) {
 
 app.post("/delete", function(req, res) {
   const deleteItemId = req.body.deletebutton;
-  ChatItem.findByIdAndRemove(deleteItemId, function(err) {
-    if (!err) {
-      res.redirect("/chat");
-    }
-  });
+  const groupName=req.body.GroupName;
+  if (groupName==="Boom"){
+    ChatItem.findByIdAndRemove(deleteItemId, function(err) {
+      if (!err) {
+        res.redirect("/chat");
+      }
+    });
+  }else{
+    Group.findByIdAndRemove(deleteItemId, function(err) {
+      if (!err) {
+        res.redirect("/"+groupName);
+      }
+    });
+  }
+
 });
 
 

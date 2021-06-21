@@ -33,10 +33,15 @@
     <div class="row">
       <div class="col-md">
         <img class="image" src="images/chat.svg" alt="">
+        <h3 class="desp">create your own private room</h3>
         <form id="your_form" onsubmit="yourFunction()">
-          <input type="text" name="keywords">
-          <button type="submit" name="button">Create</button>
-        
+          <input type="text" class="form-control" placeholder="Group Name" name="keywords">
+
+          <div class="btn-2 register ">
+            <button type="submit" name="button" value="search"><span>Create / Join</span></button>
+
+          </div>
+
         </form>
       </div>
       <div class="col-md">
@@ -56,6 +61,7 @@
           <%if(item.name=== username){ %>
           <form action="/delete" method="post">
             <button class="btn  deletebutton" type="submit" value="<%=  item._id  %>" name="deletebutton">delete </button>
+            <input type="hidden" name="GroupName" value="<%=groupname%>"></input>
           </form>
           <%} %>
           <%} %>
