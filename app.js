@@ -144,6 +144,21 @@ app.get("/logout", function(req, res) {
   req.logout();
   res.redirect("/");
 });
+
+app.get("/yourgroups", function(req, res) {
+  if (req.isAuthenticated()) {
+    Group.find(function(err, founditems) {
+      res.render("yourgroups", {
+        newChat: founditems,
+        username: req.user.name,
+
+      });
+    });
+  } else {
+    res.redirect("/login");
+  }
+});
+
 app.get("/:customGroupName", function(req, res) {
   const costumGroupName = req.params.customGroupName;
   if (req.isAuthenticated()) {

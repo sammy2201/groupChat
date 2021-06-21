@@ -1,0 +1,21 @@
+body{
+  background-color: #D8E3E7;
+}
+.navbar {
+  background-color: #6186E4
+}
+
+.navbar {
+    -webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;
+}
+
+.btn{
+  background-color:#112D8E;
+  color: white;
+  margin-left: 20%
+}
+.btn:hover{
+  background-color: #131F4B;
+}

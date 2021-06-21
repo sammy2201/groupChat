@@ -1,0 +1,23 @@
+<%- include("header") -%>
+<link rel="stylesheet" href="css/yourgroups.css">
+<nav class="nav navbar navbar-expand-lg navbar-dark ">
+  <a class="navbar-brand" href="/">GroupChat</a>
+  <i class="far icon fa-comments fa-2x"></i>
+  <a class="btn btn-light btn-dark logout" href="/logout" role="button">Log Out</a>
+
+</nav>
+<%const array=[ ]%>
+<h1><%=username%></h1>
+<% newChat.forEach(function(item){ %>
+<%if(item.name=== username){ %>
+  <%if(array.includes(item.nameOfGroup) === false){ %>
+      <%array.push(item.nameOfGroup)%>
+  <%} %>
+<%} %>
+<%}) %>
+
+<% array.forEach(function(item){ %>
+  <h4><%=item%></h4>
+<%}) %>
+
+<%- include("footer") -%>
