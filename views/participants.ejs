@@ -1,29 +1,22 @@
 <%- include("header") -%>
 <%- include("groupsheader") -%>
 
-<%const array=[ ]%>
-<%const groupname=" "%>
-<h1><%=username%>'s Groups</h1>
-<% newChat.forEach(function(item){ %>
-<%if(item.name=== username){ %>
-<%if(array.includes(item.nameOfGroup) === false){ %>
-<%array.push(item.nameOfGroup)%>
-<%} %>
-<%} %>
-<%}) %>
+<h1>participants</h1>
 <a href="/chat">
   <div class="groupList title">
     <h4 class="listItem">Go To Public Room</h4>
   </div>
 </a>
+<%const array=[ ]%>
+<% newChat.forEach(function(item){ %>
+<%if(array.includes(item.name) === false && item.nameOfGroup===requestedgroup){ %>
+<%array.push(item.name)%>
+<%} %>
+<%}) %>
 
 <% array.forEach(function(item){ %>
-<a href="/<%=item%>">
   <div class="groupList">
     <h4 class="listItem"><%=item%></h4>
   </div>
-</a>
 <%}) %>
-
-
 <%- include("footer") -%>

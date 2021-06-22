@@ -22,8 +22,8 @@ body{
 }
 
 .image{
-  width: 280px;
-  height: 280px;
+  width: 200px;
+  height: 200px;
   margin-top: 10%;
   margin-left: 10%
 }
@@ -185,7 +185,8 @@ span {
 .desp{
   margin-left: 15%;
   font-style: italic;
-  color: #112D8E;
+  color:  #6186E4;
+  margin-top: 10%
 }
 
 .form-control{

@@ -43,6 +43,13 @@ body{
   background-color: #BEDCFA;
   color: black;
 }
+.title{
+    background-color:  #131F4B;
+}
+.title:hover{
+  background-color: #6186E4;
+  color: white;
+}
 h1{
   margin-left: 35%;
   color: #112D8E;

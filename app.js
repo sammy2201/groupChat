@@ -113,7 +113,7 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 ///////////////////////////get////////////////////////////////////
-
+var participantsgroupname=" ";
 app.get("/", function(req, res) {
   res.render("home");
 });
@@ -151,6 +151,19 @@ app.get("/yourgroups", function(req, res) {
       res.render("yourgroups", {
         newChat: founditems,
         username: req.user.name,
+      });
+    });
+  } else {
+    res.redirect("/login");
+  }
+});
+
+app.get("/participants", function(req, res) {
+  if (req.isAuthenticated()) {
+    Group.find(function(err, founditems) {
+      res.render("participants", {
+         requestedgroup:participantsgroupname,
+         newChat: founditems,
       });
     });
   } else {
@@ -287,6 +300,12 @@ app.post("/chat", upload.single('image'), function(req, res) {
   }
 
 });
+
+app.post("/participants", function(req, res) {
+  participantsgroupname = req.body.upperbutton;
+  res.redirect("/participants");
+});
+
 
 app.listen(process.env.PORT || 3000, function() {
   console.log("in port 3000");
