@@ -61,7 +61,7 @@
           <% newChat.forEach(function(item){ %>
           <%if(item.nameOfGroup=== groupname||item.nameOfGroup=== undefined){ %>
           <p class='chat time'><%=  item.time  %></p>
-          <h2 class='chat'><%=  item.name  %>:</h2>
+          <h4 class='chat'><%=  item.name  %>:</h4>
           <p class='chat'><%=  item.chat  %></p>
           <%if(item.image==="true"){ %>
           <img class='chat-img' src="data:image/<%=item.img.contentType%>;base64,

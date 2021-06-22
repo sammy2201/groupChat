@@ -1,5 +1,5 @@
 body{
-  background-color: #D8E3E7;
+  background-color: #F9F3F3;
 }
 .navbar {
   background-color: #6186E4
@@ -22,10 +22,10 @@ body{
 }
 
 .image{
-  width: 300px;
-  height: 300px;
-  margin-top: 12%;
-  margin-left: 15%
+  width: 280px;
+  height: 280px;
+  margin-top: 10%;
+  margin-left: 10%
 }
 
 .icon {
@@ -36,8 +36,6 @@ body{
 .chat {
   margin-left: 20px;
 }
-
-
 
 .time {
   font-size: 12px;
@@ -193,7 +191,6 @@ span {
 .form-control{
   width: 250px;
   margin-left: 23%;
-
   -webkit-box-shadow: 0 8px 6px -6px #999;
   -moz-box-shadow: 0 8px 6px -6px #999;
   box-shadow: 0 8px 6px -6px #999;

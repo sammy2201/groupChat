@@ -1,5 +1,9 @@
 body{
-  background-color: #D8E3E7;
+  background-color: #F9F3F3;
+}
+.icon {
+  color: white;
+  align-self: baseline;
 }
 .navbar {
   background-color: #6186E4
@@ -18,4 +22,29 @@ body{
 }
 .btn:hover{
   background-color: #131F4B;
+}
+
+.groupList{
+  width: 70%;
+  height: 40px;
+  background-color: #6186E4;
+  margin-top: 2%;
+  align-items: center;
+  margin-left: 15%;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+  -moz-box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 8px 6px -6px #999;
+}
+
+.groupList:hover{
+  background-color: #BEDCFA;
+  color: black;
+}
+h1{
+  margin-left: 35%;
+  color: #112D8E;
+  font-style: italic;
 }

@@ -151,7 +151,6 @@ app.get("/yourgroups", function(req, res) {
       res.render("yourgroups", {
         newChat: founditems,
         username: req.user.name,
-
       });
     });
   } else {

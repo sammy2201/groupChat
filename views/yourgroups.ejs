@@ -4,20 +4,26 @@
   <a class="navbar-brand" href="/">GroupChat</a>
   <i class="far icon fa-comments fa-2x"></i>
   <a class="btn btn-light btn-dark logout" href="/logout" role="button">Log Out</a>
-
 </nav>
 <%const array=[ ]%>
-<h1><%=username%></h1>
+<%const groupname=" "%>
+<h1><%=username%>'s Groups</h1>
 <% newChat.forEach(function(item){ %>
 <%if(item.name=== username){ %>
-  <%if(array.includes(item.nameOfGroup) === false){ %>
-      <%array.push(item.nameOfGroup)%>
-  <%} %>
+<%if(array.includes(item.nameOfGroup) === false){ %>
+<%array.push(item.nameOfGroup)%>
+<%} %>
 <%} %>
 <%}) %>
 
+
 <% array.forEach(function(item){ %>
-  <h4><%=item%></h4>
+<a href="/<%=item%>">
+  <div class="groupList">
+    <h4 class="listItem"><%=item%></h4>
+  </div>
+</a>
 <%}) %>
+
 
 <%- include("footer") -%>
