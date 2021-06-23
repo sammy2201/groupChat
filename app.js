@@ -9,6 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 require('dotenv/config');
+var validator = require("email-validator");
 
 
 
@@ -196,7 +197,9 @@ app.post("/login", function(req, res) {
 
   req.login(user, function(err) {
     if (err) {
-      console.log(err);
+      res.render("error",{
+        error:"unauthorized"
+      });
     } else {
       passport.authenticate("local")(req, res, function() {
         res.redirect("/chat");
@@ -207,12 +210,15 @@ app.post("/login", function(req, res) {
 
 app.post("/register", function(req, res) {
   const nameOfUser = req.body.name;
+if(validator.validate(req.body.username)===true){
   User.register({
     username: req.body.username,
     name: nameOfUser
   }, req.body.password, function(err, user) {
     if (err) {
-      res.send("<h3>username or mail already exist </h3><br></h4>please try with other credentials</h4>");
+      res.render("error",{
+        error:"username or mail already exist please try with other credentials"
+      });
       res.redirect("/chat");
     } else {
       passport.authenticate("local")(req, res, function() {
@@ -220,6 +226,12 @@ app.post("/register", function(req, res) {
       });
     }
   });
+}else{
+  res.render("error",{
+    error:"verify your mail"
+  });
+}
+
 });
 
 app.post("/delete", function(req, res) {
