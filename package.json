@@ -12,6 +12,9 @@
   },
   "author": "Sanmay",
   "license": "ISC",
+  "engines": {
+    "node": "14.17.0"
+  },
   "bugs": {
     "url": "https://github.com/sammy2201/groupChat/issues"
   },
@@ -22,7 +25,6 @@
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "email-validator": "^2.0.4",
-    "emojionearea": "^3.4.2",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "gmail-validation": "^0.0.4",

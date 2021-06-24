@@ -33,7 +33,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/chatdb", {
+mongoose.connect("mongodb+srv://admin_sam:test123@cluster0.r7df0.mongodb.net/chatdb", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -318,7 +318,10 @@ app.post("/participants", function(req, res) {
   res.redirect("/participants");
 });
 
-
-app.listen(process.env.PORT || 3000, function() {
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+app.listen(port, function() {
   console.log("in port 3000");
 });

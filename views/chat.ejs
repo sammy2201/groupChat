@@ -8,7 +8,6 @@
     }, 0.000000000000000000001);
     return false;
   });
-
   function yourFunction() {
     var action_src = "http://localhost:3000/" + document.getElementsByName("keywords")[0].value;
     var your_form = document.getElementById('your_form');
@@ -38,7 +37,7 @@
         <img class="image" src="images/chat.svg" alt="">
         <%if(groupname=== "Boom"){ %>
     <h3 class="desp">create your own private room</h3>
-  
+
     <form id="your_form" onsubmit="yourFunction()">
       <input type="text" class="form-control" placeholder="Group Name" name="keywords">
       <div class="btn-2 register ">
