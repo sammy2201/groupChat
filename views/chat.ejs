@@ -1,6 +1,5 @@
 <%- include("header") -%>
 <link rel="stylesheet" href="css/chat.css">
-
 <script>
   $(document).ready(function() {
     $('html,.chatbox').animate({
@@ -14,11 +13,8 @@
     your_form.action = action_src;
   }
 </script>
-
 </head>
-
 <body>
-
   <nav class="nav navbar navbar-expand-lg navbar-dark ">
     <a class="navbar-brand" href="/">GroupChat</a>
     <i class="far icon fa-comments fa-2x"></i>
@@ -30,14 +26,12 @@
     </form>
     <%}%>
   </nav>
-
   <div class="container">
     <div class="row">
       <div class="col-md">
         <img class="image" src="images/chat.svg" alt="">
         <%if(groupname=== "Boom"){ %>
     <h3 class="desp">create your own private room</h3>
-
     <form id="your_form" onsubmit="yourFunction()">
       <input type="text" class="form-control" placeholder="Group Name" name="keywords">
       <div class="btn-2 register ">
@@ -94,7 +88,6 @@
         </div>
       </div>
     </div>
-
     </div>
     </div>
     </div>

@@ -12,15 +12,12 @@ require('dotenv/config');
 var validator = require("email-validator");
 
 
-
 const app = express();
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.set('view engine', 'ejs');
-
-
 
 
 app.use(session({
@@ -35,7 +32,7 @@ app.use(passport.session());
 
 mongoose.connect("mongodb+srv://admin_sam:test123@cluster0.r7df0.mongodb.net/chatdb", {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -54,13 +51,12 @@ var upload = multer({
   storage: storage
 });
 
-/////////////////////////////////////////schema////////////////////////
+//////////////////////////////schema/////////////////////////////////
 
 const chatSchema = new mongoose.Schema({
   chat: String,
   name: {
     type: String,
-    unique: true,
   },
   time: String,
   img: {
@@ -68,7 +64,6 @@ const chatSchema = new mongoose.Schema({
     contentType: String
   },
   image: String
-
 });
 
 const groupSchema = new mongoose.Schema({
@@ -84,7 +79,6 @@ const groupSchema = new mongoose.Schema({
     contentType: String
   },
   image: String
-
 });
 
 const userSchema = new mongoose.Schema({
@@ -94,12 +88,10 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
   password: String,
-
 });
 
 //////////////////////////////////////////////////////////////////
 userSchema.plugin(passportLocalMongoose);
-
 //////////////////////////model//////////////////////////////////
 
 const ChatItem = mongoose.model("chatItem", chatSchema);
@@ -108,7 +100,7 @@ const Group = new mongoose.model("Group", groupSchema);
 // var imgModel= new mongoose.model('Image', imageSchema);
 ////////////////////////////////////////////////////////////////
 
-/////////////////////passport//////////////////////////////////
+/////////////////////////passport//////////////////////////////
 passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
@@ -189,12 +181,10 @@ app.get("/:customGroupName", function(req, res) {
 
 ////////////////////////post///////////////////
 app.post("/login", function(req, res) {
-
   const user = new User({
     username: req.body.username,
     password: req.body.password
   });
-
   req.login(user, function(err) {
     if (err) {
       res.render("error",{
@@ -231,7 +221,6 @@ if(validator.validate(req.body.username)===true){
     error:"verify your mail"
   });
 }
-
 });
 
 app.post("/delete", function(req, res) {
@@ -260,7 +249,6 @@ app.post("/chat", upload.single('image'), function(req, res) {
   const hours = date_ob.getHours();
   const minutes = date_ob.getMinutes();
   const currentTime = hours + ":" + minutes;
-
   if (fromThisPage === "Boom") {
     if (chat !== undefined) {
       const someconstant = new ChatItem({
@@ -310,7 +298,6 @@ app.post("/chat", upload.single('image'), function(req, res) {
     }
     res.redirect("/"+fromThisPage);
   }
-
 });
 
 app.post("/participants", function(req, res) {

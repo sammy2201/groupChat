@@ -1,6 +1,5 @@
 <%- include("header") -%>
 <%- include("groupsheader") -%>
-
 <h1>participants</h1>
 <a href="/chat">
   <div class="groupList title">
@@ -13,7 +12,6 @@
 <%array.push(item.name)%>
 <%} %>
 <%}) %>
-
 <% array.forEach(function(item){ %>
   <div class="groupList">
     <h4 class="listItem"><%=item%></h4>
